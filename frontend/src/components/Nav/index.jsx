@@ -1,0 +1,147 @@
+import { React, useState } from "react";
+import { useNavigate } from "react-router-dom";
+
+import MenuIcon from "@material-ui/icons/Menu";
+import ClearIcon from "@material-ui/icons/Clear";
+import WbSunnyIcon from "@material-ui/icons/WbSunny";
+import NightsStayIcon from "@material-ui/icons/NightsStay";
+
+import "./style.css";
+
+function Nav({ themeSetter, theme }) {
+  const [menutoggle, setMenutoggle] = useState(false);
+
+  const Toggle = () => {
+    setMenutoggle(!menutoggle);
+    console.log(menutoggle);
+  };
+
+  const closeMenu = () => {
+    setMenutoggle(false);
+  };
+
+  const navigate = useNavigate();
+
+  return (
+    <div className="header">
+      <div className="logo-nav">
+        <a
+          className="left-logo"
+          href="#home"
+          onClick={() => {
+            closeMenu();
+            navigate("#home");
+          }}
+        >
+          Monika Yadav
+        </a>
+
+        <div className="right-navigations">
+          <div className={menutoggle ? "nav-options active" : "nav-options"}>
+            <a
+              onClick={() => {
+                closeMenu();
+                navigate("#home");
+              }}
+              href="#home"
+            >
+              Home
+            </a>
+            <a
+              onClick={() => {
+                closeMenu();
+                navigate("#about");
+              }}
+              href="#about"
+            >
+              About
+            </a>
+            <a
+              onClick={() => {
+                closeMenu();
+                navigate("#stats");
+              }}
+              href="#stats"
+            >
+              Stats
+            </a>
+            <a
+              onClick={() => {
+                closeMenu();
+                navigate("#projects");
+              }}
+              href="#projects"
+            >
+              Projects
+            </a>
+            <a
+              onClick={() => {
+                closeMenu();
+                navigate("#blogs");
+              }}
+              href="#blogs"
+            >
+              Blogs
+            </a>
+            <a
+              onClick={() => {
+                closeMenu();
+                navigate("#contact");
+              }}
+              href="#contact"
+            >
+              Contact
+            </a>
+          </div>
+
+          <div className="theme-toggle">
+            {theme === "light" ? (
+              <NightsStayIcon
+                onClick={themeSetter}
+                className="theme-toggle"
+                style={{ fontSize: 40 }}
+              />
+            ) : (
+              <WbSunnyIcon
+                onClick={themeSetter}
+                className="theme-toggle"
+                style={{ fontSize: 40 }}
+              />
+            )}
+          </div>
+        </div>
+      </div>
+      <div className="mobile-nav">
+        <div className="mobile-menu">
+          {theme === "light" ? (
+            <NightsStayIcon
+              onClick={themeSetter}
+              className="theme-toggle"
+              style={{ fontSize: 40 }}
+            />
+          ) : (
+            <WbSunnyIcon
+              onClick={themeSetter}
+              className="theme-toggle"
+              style={{ fontSize: 40 }}
+            />
+          )}
+
+          <div
+            onClick={() => {
+              Toggle();
+            }}
+          >
+            {menutoggle ? (
+              <ClearIcon className="menu-icon" style={{ fontSize: 40 }} />
+            ) : (
+              <MenuIcon className="menu-icon" style={{ fontSize: 40 }} />
+            )}
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+export default Nav;

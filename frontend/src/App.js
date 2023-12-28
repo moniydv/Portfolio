@@ -1,24 +1,44 @@
-import logo from './logo.svg';
-import './App.css';
+import { useState, useEffect } from "react";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import storage from "local-storage-fallback";
 
-function App() {
+import ThemeProvider from "./components/ThemeProvider";
+import Nav from "./components/Nav";
+import Home from "./pages/Home";
+// import BlogPage from './components/BlogPage';
+
+import "./App.css";
+
+const App = () => {
+  const historyTheme = () => {
+    const prevTheme = storage.getItem("theme");
+    return prevTheme ? JSON.parse(prevTheme) : "dark";
+  };
+
+  const [theme, setTheme] = useState(historyTheme);
+
+  useEffect(() => {
+    storage.setItem("theme", JSON.stringify(theme));
+  }, [theme]);
+
+  const themeToggler = () => {
+    theme === "light" ? setTheme("dark") : setTheme("light");
+  };
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <ThemeProvider theme={theme}>
+      <Router>
+        <div className="App">
+          <Nav themeSetter={themeToggler} theme={theme} />
+          <Routes>
+            <Route exact path="/" element={<Home />}></Route>
+            <Route exact path="/blogs/:id">
+              {/* <BlogPage/> */}
+            </Route>
+          </Routes>
+        </div>
+      </Router>
+    </ThemeProvider>
   );
 }
 
