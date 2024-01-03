@@ -11,7 +11,7 @@ const ProjectCard = ({ image, demolink, codelink, description }) => {
           <div className="buttons">
             <button
               onClick={() => {
-                window.location.href = `${codelink}`;
+                window.open(`${codelink}`, "_blank")
               }}
             >
               Code
