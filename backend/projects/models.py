@@ -27,7 +27,7 @@ class Project(models.Model):
     github = models.URLField()
     demo = models.URLField(blank=True)
     image = models.FileField(upload_to="project-photos/",blank=True)
-    show = models.BooleanField(default=False)
+    show = models.BooleanField(default=True)
 
     def __str__(self):
         return self.name

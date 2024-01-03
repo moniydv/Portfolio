@@ -16,13 +16,13 @@ const ProjectCard = ({ image, demolink, codelink, description }) => {
             >
               Code
             </button>
-            <button
+            {/* <button
               onClick={() => {
                 window.location.href = `${demolink}`;
               }}
             >
               Demo
-            </button>
+            </button> */}
           </div>
         </div>
       </div>
